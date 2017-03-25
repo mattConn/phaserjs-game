@@ -10,10 +10,10 @@ function preload() {
     game.load.spritesheet('enemy', '../assets/baddie.png', 32, 32);
     
     // living tissue assets
-    game.load.image('lt-background', '../living-tissue-set/layers/background.png');//144x144
-    game.load.spritesheet('lt-tiles', '../living-tissue-set/layers/tileset.png', 144, 48);
-    game.load.image('lt-platform', '../living-tissue-set/layers/ltplatform.png');//185x67
-    game.load.image('lt-ceiling', '../living-tissue-set/layers/ltceiling.png');//78x75
+    game.load.image('lt-background', '../assets/living-tissue-set/layers/background.png');//144x144
+    game.load.spritesheet('lt-tiles', '../assets/living-tissue-set/layers/tileset.png', 144, 48);
+    game.load.image('lt-platform', '../assets/living-tissue-set/layers/ltplatform.png');//185x67
+    game.load.image('lt-ceiling', '../assets/living-tissue-set/layers/ltceiling.png');//78x75
 
     game.load.image('collider', '../assets/collider.png');
 
