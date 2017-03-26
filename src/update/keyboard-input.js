@@ -23,6 +23,10 @@ if (jumpButton.isDown && (player.body.onFloor() || player.body.touching.down)) {
 }
 
 // DEV
-if (cursors.left.isDown || cursors.right.isDown || jumpButton.isDown ) {
+dev = 0;
+if (devButton.isDown){
+    dev=1;
+}
+if ( (dev > 0) && (cursors.left.isDown || cursors.right.isDown || jumpButton.isDown) ) {
     console.log(player.position);
 }

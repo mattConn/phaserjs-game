@@ -125,6 +125,7 @@ function create() {
     // keyboard input support
     cursors = game.input.keyboard.createCursorKeys();
     jumpButton = game.input.keyboard.addKey(Phaser.Keyboard.Z);
+    devButton = game.input.keyboard.addKey(Phaser.Keyboard.D);
 }
 function update() {
     // collision detection
@@ -181,7 +182,11 @@ function update() {
     }
     
     // DEV
-    if (cursors.left.isDown || cursors.right.isDown || jumpButton.isDown ) {
+    dev = 0;
+    if (devButton.isDown){
+        dev=1;
+    }
+    if ( (dev > 0) && (cursors.left.isDown || cursors.right.isDown || jumpButton.isDown) ) {
         console.log(player.position);
     }
 }
