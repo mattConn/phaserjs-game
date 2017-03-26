@@ -1,4 +1,4 @@
 function update() {
-    //=include _collision.js
-    //=include _player-control.js
+    //=include update/_collision.js
+    //=include update/_keyboard-input.js
 }
