@@ -21,3 +21,8 @@ else {
 if (jumpButton.isDown && (player.body.onFloor() || player.body.touching.down)) {
     player.body.velocity.y = -780;
 }
+
+// DEV
+if (cursors.left.isDown || cursors.right.isDown || jumpButton.isDown ) {
+    console.log(player.position);
+}

@@ -23,7 +23,7 @@ gulp.task('copy', function() {
 
 // Watch Files For Changes
 gulp.task('watch', function() {
-    gulp.watch('src/*.js', ['scripts']);
+    gulp.watch(['src/*.js', 'src/**/*.js'], ['scripts']);
     gulp.watch(['src/*.html', 'src/assets/**/*', 'src/vendor/**/*'], ['copy']);
 });
 

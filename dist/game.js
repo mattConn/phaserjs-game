@@ -144,7 +144,8 @@ function update() {
     game.physics.arcade.overlap(player, null, this);
     
     // player and enemy wall collision
-    function playerWallCollision(){console.log('WALL COLLISION')}
+    // function playerWallCollision(){console.log('WALL COLLISION')}
+    function playerWallCollision(){''}
     
     function enemyLeftWallCollision(){
         enemy.animations.play('right');
@@ -177,6 +178,11 @@ function update() {
     
     if (jumpButton.isDown && (player.body.onFloor() || player.body.touching.down)) {
         player.body.velocity.y = -780;
+    }
+    
+    // DEV
+    if (cursors.left.isDown || cursors.right.isDown || jumpButton.isDown ) {
+        console.log(player.position);
     }
 }
 

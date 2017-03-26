@@ -15,7 +15,8 @@ game.physics.arcade.overlap(enemies, colliders.getAll('collider')[1], enemyRight
 game.physics.arcade.overlap(player, null, this);
 
 // player and enemy wall collision
-function playerWallCollision(){console.log('WALL COLLISION')}
+// function playerWallCollision(){console.log('WALL COLLISION')}
+function playerWallCollision(){''}
 
 function enemyLeftWallCollision(){
     enemy.animations.play('right');
