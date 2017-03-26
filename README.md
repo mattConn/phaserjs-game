@@ -1,4 +1,5 @@
 # phaserjs-game
 Making game with Phaser JS.  
 
-(Mostly for learning.)
+## To play
+Run local server with 'dist' as root.

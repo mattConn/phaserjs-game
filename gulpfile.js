@@ -8,23 +8,23 @@ var include = require('gulp-include');
 
 // Concatenate & Minify JS
 gulp.task('scripts', function() {
-    return gulp.src(['src/js/vendor/*.js', 'src/js/*.js', '!src/js/_*.js'])
+    return gulp.src(['!src/_*.js', 'src/*.js' ])
         .pipe(include())
-        .pipe(concat('main.js'))
-        .pipe(uglify())
-        .pipe(gulp.dest('dist/js'));
+        // .pipe(concat('main.js'))
+        // .pipe(uglify())
+        .pipe(gulp.dest('dist'));
 });
 
-// simple copying of files
+// Simple copying of files
 gulp.task('copy', function() {
-    return gulp.src(['src/*.html', 'src/assets/**/*'])
+    return gulp.src(['src/*.html', 'src/assets/**/*', 'src/vendor/**/*'], { base: 'src' })
         .pipe(gulp.dest('dist'));
 });
 
 // Watch Files For Changes
 gulp.task('watch', function() {
     gulp.watch('src/*.js', ['scripts']);
-    gulp.watch('src/js/*.js', ['copy']);
+    gulp.watch(['src/*.html', 'src/assets/**/*', 'src/vendor/**/*'], ['copy']);
 });
 
 // Default Task
