@@ -9,21 +9,34 @@ function preload() {
     game.load.image('lt-background', '../assets/living-tissue-set/layers/background.png');//144x144
     game.load.spritesheet('lt-tiles', '../assets/living-tissue-set/layers/tileset.png', 144, 48);
     game.load.image('lt-platform', '../assets/living-tissue-set/layers/ltplatform.png');//185x67
-    game.load.image('lt-ceiling', '../assets/living-tissue-set/layers/ltceiling.png');//78x75
+    game.load.image('lt-ceiling', '../assets/living-tissue-set/layers/ltceiling.png');//78x75\
+    game.load.image('grid-cell', '../assets/grid-cell.png');
     // characters
     game.load.spritesheet('dude', '../assets/dude.png', 32, 48);
     game.load.spritesheet('enemy', '../assets/baddie.png', 32, 32);
 }
 
-// TODO: clarify declarations
+// global group variable declarations
+
+// you
 var player,
+// standing surface
     platforms,
+// keyboard support
     cursors,
+// unused? FIXME
     edgeCollision,
+// living tissue bg
     ltBackground,
+// living tissue standing surface
     ltPlatforms,
+// world edge collision
     colliders,
+// grid for organization of sprites
+    grid,
+// enemies
     enemies,
+// single enemy
     enemy;
 function create() {
     game.physics.startSystem(Phaser.Physics.ARCADE);
@@ -33,6 +46,8 @@ function create() {
     colliders.enableBody = true;
 
     ltBackground = game.add.group();
+
+    grid = game.add.group();
 
     platforms = game.add.group();
 
@@ -60,13 +75,27 @@ function create() {
 
     
 
+    // DEV grid
+
+    for(var j=0; j<=game.world.width/32; j++){
+
+        for (var i = 0; i <= game.world.height/32; i++) {
+
+            grid.create(j * 32, i * 32, 'grid-cell');
+
+        }
+
+    }
+
+    
+
     // living tissue bg tile
 
     for(var j=0; j<7; j++){
 
         for (var i = 0; i < 8; i++) {
 
-            ltBackground.create(i * 144, j * 144, 'lt-background');
+            ltBackground.create(i*144, j*144, 'lt-background');
 
         }
 
@@ -112,7 +141,37 @@ function create() {
 
     // spawning enemies
 
-    spawnEnemies(game.world.width - 100, game.world.height - 120, 20);
+    enemies.velocity = 150;
+
+    
+
+    spawnEnemies(
+
+        game.world.width - 100,
+
+        game.world.height - 120,
+
+        'left',
+
+        -1 * enemies.velocity
+
+    );
+
+    
+
+    spawnEnemies(
+
+        game.world.width - 100,
+
+        game.world.height - 120,
+
+        'right',
+
+        enemies.velocity
+
+    );
+
+    // spawnEnemies(game.world.width - 150, game.world.height - 120, 20, 'right');
 
     // spawnEnemies(game.world.width - 100, game.world.height - 120, 20);
 
@@ -192,29 +251,15 @@ function update() {
 }
 
 // enemy spawning fn
-// TODO
-// Fix default velocity when arg is null
 
-function spawnEnemies (x, y, rBounds) {
+function spawnEnemies (x, y, animation, velocity) {
     enemy = enemies.create(x,y,'enemy');
         game.physics.arcade.enable(enemy);
         enemy.body.gravity.y = 2000;
         enemy.body.collideWorldBounds = true;
         enemy.animations.add('left', [0, 1], 10, true);
         enemy.animations.add('right', [2, 3], 10, true);
-        
-        // enemy movement
-    if (enemy.body.position.x == x){
-    
-        enemy.body.velocity.x = -150;
-        enemy.animations.play('left');
-    
-    }
-    // else if(enemy.body.position.x == rBounds){
-    //     enemy.body.velocity.x = 150;
-    //     enemy.animations.play('right');
-    // }
 
-        
-        // enemy.animations.play('left');
+        enemy.animations.play(animation);
+        enemy.body.velocity.x = velocity;
 }

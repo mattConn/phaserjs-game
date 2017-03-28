@@ -3,10 +3,17 @@ collider.body.immovable = true;
 collider = colliders.create(game.world.width - 3,0,'collider');
 collider.body.immovable = true;
 
+// DEV grid
+for(var j=0; j<=game.world.width/32; j++){
+    for (var i = 0; i <= game.world.height/32; i++) {
+        grid.create(j * 32, i * 32, 'grid-cell');
+    }
+}
+
 // living tissue bg tile
 for(var j=0; j<7; j++){
     for (var i = 0; i < 8; i++) {
-        ltBackground.create(i * 144, j * 144, 'lt-background');
+        ltBackground.create(i*144, j*144, 'lt-background');
     }
 }
 
@@ -29,7 +36,22 @@ for(var i=0;i<6;i++){
 }
 
 // spawning enemies
-spawnEnemies(game.world.width - 100, game.world.height - 120, 20);
+enemies.velocity = 150;
+
+spawnEnemies(
+    game.world.width - 100,
+    game.world.height - 120,
+    'left',
+    -1 * enemies.velocity
+);
+
+spawnEnemies(
+    game.world.width - 100,
+    game.world.height - 120,
+    'right',
+    enemies.velocity
+);
+// spawnEnemies(game.world.width - 150, game.world.height - 120, 20, 'right');
 // spawnEnemies(game.world.width - 100, game.world.height - 120, 20);
 // spawnEnemies(game.world.width - 100, game.world.height - 120);
 // spawnEnemies(game.world.width - 50, game.world.height - 120);
