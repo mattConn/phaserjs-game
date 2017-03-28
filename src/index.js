@@ -1,5 +1,5 @@
 /*=include _preload.js
 /*=include create/index.js
-/*=include _update.js
+/*=include update/index.js
 
 /*=include _spawn-enemies.js
