@@ -1,3 +1,5 @@
+// ever-present game elements
+
 var collider = colliders.create(5,0,'collider');
 collider.body.immovable = true;
 collider = colliders.create(game.world.width - 3,0,'collider');

@@ -113,6 +113,10 @@ function create() {
     // spawnEnemies(game.world.width - 50, game.world.height - 120);
     // spawnEnemies(game.world.width - 50, 350);
     
+    // ever-present game elements
+    
+    
+    
     var collider = colliders.create(5,0,'collider');
     
     collider.body.immovable = true;
