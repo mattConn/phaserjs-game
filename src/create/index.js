@@ -11,5 +11,6 @@ function create() {
     //=include persistent.js
 
     // keyboard input support
+    // bindings included in update/index.js
     //=include ../keyboard/definitions.js
 }
