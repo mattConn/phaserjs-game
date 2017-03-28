@@ -5,10 +5,11 @@ function create() {
     //=include create/player.js
     //=include create/enemy-groups.js
 
+    // level
     //=include _room-1.js
     
+    //=include _persistent.js
+
     // keyboard input support
-    cursors = game.input.keyboard.createCursorKeys();
-    jumpButton = game.input.keyboard.addKey(Phaser.Keyboard.Z);
-    devButton = game.input.keyboard.addKey(Phaser.Keyboard.D);
+    //=include keyboard/definitions.js
 }

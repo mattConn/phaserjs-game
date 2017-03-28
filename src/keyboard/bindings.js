@@ -1,5 +1,6 @@
 player.body.velocity.x = 0;
 
+// arrow keys; left/right movement
 if (cursors.left.isDown) {
     player.body.velocity.x = -250;
     player.animations.play('left');
@@ -9,6 +10,7 @@ else if (cursors.right.isDown) {
     player.animations.play('right');
 }
 else {
+    // on stop, face direction of movement
     if (player.animations.currentAnim.name == 'left') {
         player.frame = 0;
     }
@@ -18,15 +20,7 @@ else {
     player.animations.stop();
 }
 
+// jumping
 if (jumpButton.isDown && (player.body.onFloor() || player.body.touching.down)) {
     player.body.velocity.y = -780;
-}
-
-// DEV
-dev = 0;
-if (devButton.isDown){
-    dev=1;
-}
-if ( (dev > 0) && (cursors.left.isDown || cursors.right.isDown || jumpButton.isDown) ) {
-    console.log(player.position);
 }
