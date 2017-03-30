@@ -3,7 +3,7 @@
 var collidesWith = {
     player : [platforms, enemies],
     enemies : [platforms],
-    colliders : [enemies, player]
+    worldEdges : [enemies, player]
 
 };
 
@@ -12,19 +12,19 @@ for (var key in collidesWith.player) { game.physics.arcade.collide(player, colli
 for (var key in collidesWith.enemies) { game.physics.arcade.collide(enemies, collidesWith.enemies[key]); }
 
 // left world bounds collision
-for (var key in collidesWith.colliders) { 
+for (var key in collidesWith.worldEdges) { 
     game.physics.arcade.collide(
-        collidesWith.colliders[key], 
-        colliders.getAll('collider')[0], 
+        collidesWith.worldEdges[key], 
+        worldEdges.getAll('worldEdge')[0], 
         enemyLeftWallCollision, 
         null, this);
 }
 
 // right world bounds collision
-for (var key in collidesWith.colliders) { 
+for (var key in collidesWith.worldEdges) { 
     game.physics.arcade.collide(
-        collidesWith.colliders[key], 
-        colliders.getAll('collider')[1], 
+        collidesWith.worldEdges[key], 
+        worldEdges.getAll('worldEdge')[1], 
         enemyRightWallCollision, 
         null, this);
 }
