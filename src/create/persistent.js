@@ -2,8 +2,11 @@
 
 var collider = colliders.create(5,0,'collider');
 collider.body.immovable = true;
+collider.alpha = 0;
+
 collider = colliders.create(game.world.width - 3,0,'collider');
 collider.body.immovable = true;
+collider.alpha = 0;
 
 // DEV grid
 for(var j=0; j<game.world.width/32; j++){

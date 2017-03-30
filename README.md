@@ -15,3 +15,5 @@ Terms to search for:
 - level manager
     - trigger level draw on edge collision
 - get new assets
+- recursive world edge collision fn
+- fix player pushed through floor by falling enemies bug

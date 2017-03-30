@@ -108,9 +108,15 @@ function create() {
     
     collider.body.immovable = true;
     
+    collider.alpha = 0;
+    
+    
+    
     collider = colliders.create(game.world.width - 3,0,'collider');
     
     collider.body.immovable = true;
+    
+    collider.alpha = 0;
     
     
     
@@ -136,21 +142,40 @@ function create() {
 }
 function update() {
     // collision detection
-    game.physics.arcade.collide(player, platforms);
-    game.physics.arcade.collide(player, enemies);
     
-    game.physics.arcade.collide(enemies, platforms);
+    var collidesWith = {
+        player : [platforms, enemies],
+        enemies : [platforms],
+        colliders : [enemies, player]
     
-    game.physics.arcade.collide(enemies, colliders.getAll('collider')[0], enemyLeftWallCollision, null, this);
-    game.physics.arcade.collide(enemies, colliders.getAll('collider')[1], enemyRightWallCollision, null, this);
-    // game.physics.arcade.overlap(enemy, colliders.getAll('collider')[1], enemyRightWallCollision, null, this);
-    // game.physics.arcade.overlap(enemy, colliders.getAll('collider')[0], enemyLeftWallCollision, null, this);
-    // }
+    };
+    
+    for (var key in collidesWith.player) { game.physics.arcade.collide(player, collidesWith.player[key]); }
+    
+    for (var key in collidesWith.enemies) { game.physics.arcade.collide(enemies, collidesWith.enemies[key]); }
+    
+    // left world bounds collision
+    for (var key in collidesWith.colliders) { 
+        game.physics.arcade.collide(
+            collidesWith.colliders[key], 
+            colliders.getAll('collider')[0], 
+            enemyLeftWallCollision, 
+            null, this);
+    }
+    
+    // right world bounds collision
+    for (var key in collidesWith.colliders) { 
+        game.physics.arcade.collide(
+            collidesWith.colliders[key], 
+            colliders.getAll('collider')[1], 
+            enemyRightWallCollision, 
+            null, this);
+    }
     
     game.physics.arcade.overlap(player, null, this);
     
     // player and enemy wall collision
-    // function playerWallCollision(){console.log('WALL COLLISION')}
+    
     function playerWallCollision(){''}
     
     function enemyLeftWallCollision(enemies, enemy){
