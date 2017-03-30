@@ -158,11 +158,14 @@ function update() {
     
     };
     
+    // player collision
     for (var key in collidesWith.player) { game.physics.arcade.collide(player, collidesWith.player[key]); }
     
+    // enemy collision
     for (var key in collidesWith.enemies) { game.physics.arcade.collide(enemies, collidesWith.enemies[key]); }
     
     // left world bounds collision
+    // TODO make recursive for all enemies and player; array of functions?
     for (var key in collidesWith.worldEdges) { 
         game.physics.arcade.collide(
             collidesWith.worldEdges[key], 
