@@ -26,21 +26,8 @@ for(var i=0;i<6;i++){
 // spawning enemies
 enemies.velocity = 150;
 
-spawnEnemies(
-    game.world.width - 100,
-    game.world.height - 120,
-    'left',
-    -1 * enemies.velocity
-);
+for(var i=0;i<5;i++){ spawnEnemies(
+    i * 32, 0, 'right', enemies.velocity); }
 
-spawnEnemies(
-    game.world.width - 100,
-    game.world.height - 120,
-    'right',
-    enemies.velocity
-);
-// spawnEnemies(game.world.width - 150, game.world.height - 120, 20, 'right');
-// spawnEnemies(game.world.width - 100, game.world.height - 120, 20);
-// spawnEnemies(game.world.width - 100, game.world.height - 120);
-// spawnEnemies(game.world.width - 50, game.world.height - 120);
-// spawnEnemies(game.world.width - 50, 350);
+for(var i=0;i<5;i++){ spawnEnemies(
+    i * 32 + 600, 100, 'left', -1 * enemies.velocity);}

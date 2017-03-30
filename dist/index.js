@@ -47,11 +47,11 @@ function create() {
 
     ltBackground = game.add.group();
 
-    grid = game.add.group();
-
     platforms = game.add.group();
 
     platforms.enableBody = true;
+
+    grid = game.add.group();
     // build player
     player = game.add.sprite(32, game.world.height - 150, 'dude');
     game.physics.arcade.enable(player);
@@ -94,24 +94,11 @@ function create() {
     // spawning enemies
     enemies.velocity = 150;
     
-    spawnEnemies(
-        game.world.width - 100,
-        game.world.height - 120,
-        'left',
-        -1 * enemies.velocity
-    );
+    for(var i=0;i<5;i++){ spawnEnemies(
+        i * 32, 0, 'right', enemies.velocity); }
     
-    spawnEnemies(
-        game.world.width - 100,
-        game.world.height - 120,
-        'right',
-        enemies.velocity
-    );
-    // spawnEnemies(game.world.width - 150, game.world.height - 120, 20, 'right');
-    // spawnEnemies(game.world.width - 100, game.world.height - 120, 20);
-    // spawnEnemies(game.world.width - 100, game.world.height - 120);
-    // spawnEnemies(game.world.width - 50, game.world.height - 120);
-    // spawnEnemies(game.world.width - 50, 350);
+    for(var i=0;i<5;i++){ spawnEnemies(
+        i * 32 + 600, 100, 'left', -1 * enemies.velocity);}
     
     // ever-present game elements
     
@@ -129,11 +116,13 @@ function create() {
     
     // DEV grid
     
-    for(var j=0; j<=game.world.width/32; j++){
+    for(var j=0; j<game.world.width/32; j++){
     
         for (var i = 0; i <= game.world.height/32; i++) {
     
             grid.create(j * 32, i * 32, 'grid-cell');
+    
+            grid.alpha = 0.2;
     
         }
     
@@ -151,11 +140,9 @@ function update() {
     game.physics.arcade.collide(player, enemies);
     
     game.physics.arcade.collide(enemies, platforms);
-    game.physics.arcade.overlap(player, colliders.getAll('collider')[0], playerWallCollision, null, this);
     
-    // for(var i=0; i<enemies.length; i++){
-    game.physics.arcade.overlap(enemies, colliders.getAll('collider')[0], enemyLeftWallCollision, null, this);
-    game.physics.arcade.overlap(enemies, colliders.getAll('collider')[1], enemyRightWallCollision, null, this);
+    game.physics.arcade.collide(enemies, colliders.getAll('collider')[0], enemyLeftWallCollision, null, this);
+    game.physics.arcade.collide(enemies, colliders.getAll('collider')[1], enemyRightWallCollision, null, this);
     // game.physics.arcade.overlap(enemy, colliders.getAll('collider')[1], enemyRightWallCollision, null, this);
     // game.physics.arcade.overlap(enemy, colliders.getAll('collider')[0], enemyLeftWallCollision, null, this);
     // }
@@ -166,14 +153,11 @@ function update() {
     // function playerWallCollision(){console.log('WALL COLLISION')}
     function playerWallCollision(){''}
     
-    function enemyLeftWallCollision(){
+    function enemyLeftWallCollision(enemies, enemy){
         enemy.animations.play('right');
-        enemy.body.velocity.x = 150;
     }
-    
-    function enemyRightWallCollision(){
+    function enemyRightWallCollision(enemies, enemy){
         enemy.animations.play('left');
-        enemy.body.velocity.x = -150;
     }
     player.body.velocity.x = 0;
     
@@ -209,6 +193,7 @@ function spawnEnemies (x, y, animation, velocity) {
     enemy = enemies.create(x,y,'enemy');
         game.physics.arcade.enable(enemy);
         enemy.body.gravity.y = 2000;
+        enemy.body.bounce.setTo(1, 0);
         enemy.body.collideWorldBounds = true;
         enemy.animations.add('left', [0, 1], 10, true);
         enemy.animations.add('right', [2, 3], 10, true);

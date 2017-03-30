@@ -9,4 +9,9 @@ Terms to search for:
 - DEV
     - Developer features, remove for production
 - FIXME
-    - Bugs/incomplete solutions
+    - Bugs/incomplete solutions  
+
+## TODO:
+- level manager
+    - trigger level draw on edge collision
+- get new assets
