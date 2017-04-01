@@ -23,11 +23,13 @@ for(var i=0;i<6;i++){
         platform.body.immovable = true;
 }
 
+/*
 // spawning enemies
 enemies.velocity = 150;
 
 for(var i=0;i<5;i++){ spawnEnemies(
-    i * 32, 0, 'right', enemies.velocity); }
+    i * 32, 0, 'right'); }
 
 for(var i=0;i<5;i++){ spawnEnemies(
-    i * 32 + 600, 100, 'left', -1 * enemies.velocity);}
+    i * 32 + 600, 100, 'left');}
+*/
