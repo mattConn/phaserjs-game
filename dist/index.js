@@ -65,9 +65,12 @@ function create() {
     game.physics.arcade.enable(player);
     player.body.bounce.y = 0.1;
     player.body.gravity.y = 2000;
+    player.walkingSpeed = 250;
+    player.runningSpeed = 300;
     player.body.collideWorldBounds = true;
     player.animations.add('left', [0, 1, 2, 3], 10, true);
     player.animations.add('right', [5, 6, 7, 8], 10, true);
+    
     // enemy spawning setup
     enemies = game.add.group();
     enemies.enableBody = true;
@@ -99,14 +102,17 @@ function create() {
             platform.body.immovable = true;
     }
     
+    /*
     // spawning enemies
     enemies.velocity = 150;
     
     for(var i=0;i<5;i++){ spawnEnemies(
-        i * 32, 0, 'right', enemies.velocity); }
+        i * 32, 0, 'right'); }
     
     for(var i=0;i<5;i++){ spawnEnemies(
-        i * 32 + 600, 100, 'left', -1 * enemies.velocity);}
+        i * 32 + 600, 100, 'left');}
+    */
+    
     
     // ever-present game elements
     
@@ -128,7 +134,7 @@ function create() {
     
     
     
-    // DEV grid
+    // DEV grid, activated via G key
     
     for(var j=0; j<game.world.width/32; j++){
     
@@ -136,17 +142,22 @@ function create() {
     
             grid.create(j * 32, i * 32, 'grid-cell');
     
-            grid.alpha = 0.2;
+            grid.alpha = 0;
     
         }
     
     }
+    
+    
 
     // keyboard input support
     // bindings included in update/index.js
     cursors = game.input.keyboard.createCursorKeys();
     jumpButton = game.input.keyboard.addKey(Phaser.Keyboard.Z);
+    runButton = game.input.keyboard.addKey(Phaser.Keyboard.SHIFT);
     devButton = game.input.keyboard.addKey(Phaser.Keyboard.D);
+    gridButton = game.input.keyboard.addKey(Phaser.Keyboard.G);
+    
 }
 function update() {
     // collision detection
@@ -196,14 +207,15 @@ function update() {
         enemy.animations.play('left');
     }
     player.body.velocity.x = 0;
+    var playerSpeed = 250;
     
     // arrow keys; left/right movement
     if (cursors.left.isDown) {
-        player.body.velocity.x = -250;
+        player.body.velocity.x = -1 * (player.walkingSpeed + isRunning());
         player.animations.play('left');
     }
     else if (cursors.right.isDown) {
-        player.body.velocity.x = 250;
+        player.body.velocity.x = player.walkingSpeed + isRunning();
         player.animations.play('right');
     }
     else {
@@ -221,11 +233,26 @@ function update() {
     if (jumpButton.isDown && (player.body.onFloor() || player.body.touching.down)) {
         player.body.velocity.y = -780;
     }
+    
+    //running
+    function isRunning(){
+       if (runButton.isDown) {
+         return player.runningSpeed; 
+       } else {
+         return 0;
+       }
+    }
+    
+    // DEV display grid
+    if (gridButton.isDown) {
+       grid.alpha = 0.2;
+    }
+    
 }
 
 // enemy spawning fn
 
-function spawnEnemies (x, y, animation, velocity) {
+function spawnEnemies (x, y, direction) {
     enemy = enemies.create(x,y,'enemy');
         game.physics.arcade.enable(enemy);
         enemy.body.gravity.y = 2000;
@@ -233,7 +260,8 @@ function spawnEnemies (x, y, animation, velocity) {
         enemy.body.collideWorldBounds = true;
         enemy.animations.add('left', [0, 1], 10, true);
         enemy.animations.add('right', [2, 3], 10, true);
+	enemy.walkingSpeed = 150;	
 
-        enemy.animations.play(animation);
-        enemy.body.velocity.x = velocity;
+        enemy.animations.play(direction);
+        direction == 'left' ? enemy.body.velocity.x = -1 * enemy.walkingSpeed : enemy.body.velocity.x = 150;
 }
