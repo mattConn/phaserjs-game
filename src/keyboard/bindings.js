@@ -24,3 +24,8 @@ else {
 if (jumpButton.isDown && (player.body.onFloor() || player.body.touching.down)) {
     player.body.velocity.y = -780;
 }
+
+// DEV display grid
+if (gridButton.isDown) {
+   grid.alpha = 0.2;
+}
