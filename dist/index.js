@@ -104,8 +104,8 @@ function create() {
     }
     */
     
-    spawnEnemies(100,200,'left');
-    spawnEnemies(200,200,'left');
+    spawnEnemies(200,200,'right');
+    spawnEnemies(300,200,'right');
     
     /*
     // spawning enemies
