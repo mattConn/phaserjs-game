@@ -28,19 +28,22 @@ function drawRoom(level){
 					platform.body.immovable=true;
 					break;
 				case 'e':
-					enemies.create(cell(i), cell(key), 'enemy');
+					//enemies.create(cell(i), cell(key), 'enemy');
+					spawnEnemies(cell(i), cell(key), 'left');
+					break;
+				case 'E':
+					//enemies.create(cell(i), cell(key), 'enemy');
+					spawnEnemies(cell(i), cell(key), 'right');
 					break;
 			}
 		}
 	}
 
-	//all elements possibly present in level
-	(function(){
-		levelElements = [
-			platforms,
-			enemies
-		];
-	})();	
+	//all elements possibly present in level; to be cleared on new room
+	levelElements = [
+		platforms,
+		enemies
+	];
 
 }
 
