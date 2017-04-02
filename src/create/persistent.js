@@ -1,10 +1,10 @@
 // ever-present game elements
 
-var worldEdge = worldEdges.create(5,0,'worldEdge');
+var worldEdge = worldEdges.create(2, 0,'worldEdge');
 worldEdge.body.immovable = true;
 worldEdge.alpha = 0;
 
-worldEdge = worldEdges.create(game.world.width - 3,0,'worldEdge');
+worldEdge = worldEdges.create(game.world.width - 2,0,'worldEdge');
 worldEdge.body.immovable = true;
 worldEdge.alpha = 0;
 

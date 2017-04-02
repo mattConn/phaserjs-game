@@ -104,8 +104,8 @@ function create() {
     }
     */
     
-    spawnEnemies(100,200,'right');
-    spawnEnemies(200,200,'right');
+    spawnEnemies(100,200,'left');
+    spawnEnemies(200,200,'left');
     
     /*
     // spawning enemies
@@ -123,7 +123,7 @@ function create() {
     
     
     
-    var worldEdge = worldEdges.create(5,0,'worldEdge');
+    var worldEdge = worldEdges.create(2, 0,'worldEdge');
     
     worldEdge.body.immovable = true;
     
@@ -131,7 +131,7 @@ function create() {
     
     
     
-    worldEdge = worldEdges.create(game.world.width - 3,0,'worldEdge');
+    worldEdge = worldEdges.create(game.world.width - 2,0,'worldEdge');
     
     worldEdge.body.immovable = true;
     
