@@ -61,7 +61,7 @@ function create() {
 
     grid = game.add.group();
     // build player
-    player = game.add.sprite(32, game.world.height - 150, 'dude');
+    player = game.add.sprite(3, game.world.height - 150, 'dude');
     game.physics.arcade.enable(player);
     player.body.bounce.y = 0.1;
     player.body.gravity.y = 2000;
@@ -104,8 +104,8 @@ function create() {
     }
     */
     
-    spawnEnemies(200,200,'right');
-    spawnEnemies(300,200,'right');
+    // spawnEnemies(200,200,'right');
+    // spawnEnemies(300,200,'right');
     
     /*
     // spawning enemies
@@ -169,10 +169,10 @@ function update() {
     
     var collidesWith = {
         player : [platforms, enemies],
-        enemies : [platforms],
+        enemies : [platforms, player],
         worldEdges : [
     	{name: enemies, left: enemyLeftWallCollision, right: enemyRightWallCollision}, 
-    	{name: player, left: playerWallCollision, right: playerWallCollision}
+    	{name: player, left: playerLeftWallCollision, right: playerRightWallCollision}
         ]
     
     };
@@ -204,9 +204,12 @@ function update() {
     game.physics.arcade.overlap(player, null, this);
     
     // player and enemy wall collision
+    function playerRightWallCollision(){
+    	player.position.x = 3;
+    }
     
-    function playerWallCollision(){
-    console.log('player wall collision');
+    function playerLeftWallCollision(){
+    	player.position.x = game.world.width - 3;
     }
     
     function enemyLeftWallCollision(enemies, enemy){

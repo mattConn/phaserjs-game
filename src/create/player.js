@@ -1,5 +1,5 @@
 // build player
-player = game.add.sprite(32, game.world.height - 150, 'dude');
+player = game.add.sprite(3, game.world.height - 150, 'dude');
 game.physics.arcade.enable(player);
 player.body.bounce.y = 0.1;
 player.body.gravity.y = 2000;
