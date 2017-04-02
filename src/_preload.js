@@ -10,7 +10,8 @@ var assets = {
         ['lt-background', '../assets/living-tissue-set/layers/background.png'],
         ['lt-platform', '../assets/living-tissue-set/layers/ltplatform.png'],
         ['lt-ceiling', '../assets/living-tissue-set/layers/ltceiling.png'],
-        ['grid-cell', '../assets/grid-cell.png']
+        ['grid-cell', '../assets/grid-cell.png'],
+	['square', '../assets/square.png']
     ],
     spritesheets : [
         ['lt-tiles', '../assets/living-tissue-set/layers/tileset.png', 144, 48],
@@ -45,5 +46,6 @@ ltBackground,
 ltPlatforms,
 worldEdges,
 grid,
+square,
 enemies,
 enemy;

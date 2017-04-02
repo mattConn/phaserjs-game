@@ -10,7 +10,8 @@ var assets = {
         ['lt-background', '../assets/living-tissue-set/layers/background.png'],
         ['lt-platform', '../assets/living-tissue-set/layers/ltplatform.png'],
         ['lt-ceiling', '../assets/living-tissue-set/layers/ltceiling.png'],
-        ['grid-cell', '../assets/grid-cell.png']
+        ['grid-cell', '../assets/grid-cell.png'],
+	['square', '../assets/square.png']
     ],
     spritesheets : [
         ['lt-tiles', '../assets/living-tissue-set/layers/tileset.png', 144, 48],
@@ -45,6 +46,7 @@ ltBackground,
 ltPlatforms,
 worldEdges,
 grid,
+square,
 enemies,
 enemy;
 
@@ -62,6 +64,10 @@ function create() {
     platforms.enableBody = true;
 
     grid = game.add.group();
+
+    square = game.add.group();
+
+    
     // build player
     player = game.add.sprite(3, game.world.height - 150, 'dude');
     game.physics.arcade.enable(player);
@@ -86,12 +92,70 @@ function create() {
         }
     }
     
+    // square.create(cell(1), cell(10), 'square');
+    
+    (function(){ 
+    return level1 = [
+    
+    	[
+        //1                       25
+        '-------------------------',//1
+        '-------------------------',//2
+        '-------------------------',//3
+        '-------------------------',//4
+        '-------------------------',//5
+        '-------------------------',//6
+        '-------------------------',//7
+        '-------------------------',//8
+        '----pppppp----------ppppp',//9
+        '-------------------------',//1-
+        '-------------------------',//11
+        '-------------------------',//12
+        '-------------------------',//13
+        '-------------------------',//14
+        '-------------------------',//15
+        '-------------------------',//16
+        '-------------------------',//17
+        'ppppppppppppppppppppppppp',//18
+        'ppppppppppppppppppppppppp' //19
+    	],
+    
+    
+    	[
+        //1                       25
+        '-------------------------',//1
+        '-------------------------',//2
+        '-------------------------',//3
+        '-------------------------',//4
+        '-------------------------',//5
+        '-------------------------',//6
+        '-------------------------',//7
+        '-------------------------',//8
+        '-------------------------',//9
+        '-------------------------',//1-
+        '-------------------------',//11
+        '----ppppppppppppppppppppp',//12
+        '-------------------------',//13
+        '-------------------------',//14
+        '-------------------------',//15
+        '-------------------------',//16
+        '-------------------------',//17
+        'ppppppppppppppppppppppppp',//18
+        'ppppppppppppppppppppppppp' //19
+    	]
+    
+    ];
+    })();
+    
+    drawLevel(level1[0], 'firstTime');
+    
     // Ground creation
+    /*
     for(var i=0;i<5;i++){
         var ground = platforms.create(i*185, game.world.height - 67, 'lt-platform');
         ground.body.immovable = true;
     }
-    
+    */
     /*
     // top left quadrant ledge creation
     for(var i=0;i<2;i++){
@@ -211,6 +275,7 @@ function update() {
     // player and enemy wall collision
     function playerRightWallCollision(){
     	player.position.x = 3;
+    	drawLevel(level1[1]);
     }
     
     function playerLeftWallCollision(){
@@ -283,4 +348,72 @@ function spawnEnemies (x, y, direction) {
         enemy.animations.play(direction);
         direction == 'left' ? enemy.body.velocity.x = -1 * enemy.walkingSpeed : enemy.body.velocity.x = 150;
 }
+
+//level drawing functions
+
+function cell(number){
+	return (number - 1)*32;
+}
+
+function drawLevel(number,firstTime){
+	
+	//clear level before redraw
+	if(!firstTime){
+		//clear level	
+		for(var key in levelElements){
+			levelElements[key].callAll('kill');
+		}
+	}
+
+	//draw level
+	for(var key in number){
+		for(var i=0; i <=  number[key].length; i++){
+			
+			switch (number[key].charAt(i)){
+				case 'p':
+					platform = platforms.create(cell(i), cell(key), 'lt-platform');
+					platform.body.immovable=true;
+					break;
+				case 'e':
+					enemies.create(cell(i), cell(key), 'enemy');
+					break;
+			}
+		}
+	}
+
+	//all elements possibly present in level
+	(function(){
+		levelElements = [
+			platforms,
+			enemies
+		];
+	})();	
+
+}
+
+/*
+//level map blueprint
+var foo = [
+	//1						  25
+	'-------------------------',//1
+	'-------------------------',//2
+	'-------------------------',//3
+	'-------------------------',//4
+	'-------------------------',//5
+	'-------------------------',//6
+	'-------------------------',//7
+	'-------------------------',//8
+	'-------------------------',//9
+	'-------------------------',//1-
+	'-------------------------',//11
+	'-------------------------',//12
+	'-------------------------',//13
+	'-------------------------',//14
+	'-------------------------',//15
+	'-------------------------',//16
+	'-------------------------',//17
+	'-------------------------',//18
+	'-------------------------' //19
+];
+*/
 

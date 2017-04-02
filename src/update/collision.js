@@ -39,6 +39,7 @@ game.physics.arcade.overlap(player, null, this);
 // player and enemy wall collision
 function playerRightWallCollision(){
 	player.position.x = 3;
+	drawLevel(level1[1]);
 }
 
 function playerLeftWallCollision(){

@@ -4,3 +4,4 @@ ltBackground = game.add.group();
 platforms = game.add.group();
 platforms.enableBody = true;
 grid = game.add.group();
+square = game.add.group();
