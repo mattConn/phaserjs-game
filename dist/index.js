@@ -90,6 +90,7 @@ function create() {
         ground.body.immovable = true;
     }
     
+    /*
     // top left quadrant ledge creation
     for(var i=0;i<2;i++){
         var platform = platforms.create(185*i, 290, 'lt-platform');
@@ -101,6 +102,10 @@ function create() {
         var platform = platforms.create(185*i+500, 400, 'lt-platform');
             platform.body.immovable = true;
     }
+    */
+    
+    spawnEnemies(100,200,'right');
+    spawnEnemies(200,200,'right');
     
     /*
     // spawning enemies
@@ -165,7 +170,10 @@ function update() {
     var collidesWith = {
         player : [platforms, enemies],
         enemies : [platforms],
-        worldEdges : [enemies, player]
+        worldEdges : [
+    	{name: enemies, left: enemyLeftWallCollision, right: enemyRightWallCollision}, 
+    	{name: player, left: playerWallCollision, right: playerWallCollision}
+        ]
     
     };
     
@@ -176,29 +184,30 @@ function update() {
     for (var key in collidesWith.enemies) { game.physics.arcade.collide(enemies, collidesWith.enemies[key]); }
     
     // left world bounds collision
-    // TODO make recursive for all enemies and player; array of functions?
     for (var key in collidesWith.worldEdges) { 
         game.physics.arcade.collide(
-            collidesWith.worldEdges[key], 
+            collidesWith.worldEdges[key].name, 
             worldEdges.getAll('worldEdge')[0], 
-            enemyLeftWallCollision, 
-            null, this);
+            collidesWith.worldEdges[key].left, 
+    	null, this);
     }
     
     // right world bounds collision
     for (var key in collidesWith.worldEdges) { 
         game.physics.arcade.collide(
-            collidesWith.worldEdges[key], 
+            collidesWith.worldEdges[key].name, 
             worldEdges.getAll('worldEdge')[1], 
-            enemyRightWallCollision, 
-            null, this);
+            collidesWith.worldEdges[key].right, 
+    	null, this);
     }
     
     game.physics.arcade.overlap(player, null, this);
     
     // player and enemy wall collision
     
-    function playerWallCollision(){''}
+    function playerWallCollision(){
+    console.log('player wall collision');
+    }
     
     function enemyLeftWallCollision(enemies, enemy){
         enemy.animations.play('right');
@@ -206,6 +215,7 @@ function update() {
     function enemyRightWallCollision(enemies, enemy){
         enemy.animations.play('left');
     }
+    
     player.body.velocity.x = 0;
     var playerSpeed = 250;
     

@@ -11,6 +11,7 @@ for(var i=0;i<5;i++){
     ground.body.immovable = true;
 }
 
+/*
 // top left quadrant ledge creation
 for(var i=0;i<2;i++){
     var platform = platforms.create(185*i, 290, 'lt-platform');
@@ -22,6 +23,10 @@ for(var i=0;i<6;i++){
     var platform = platforms.create(185*i+500, 400, 'lt-platform');
         platform.body.immovable = true;
 }
+*/
+
+spawnEnemies(100,200,'right');
+spawnEnemies(200,200,'right');
 
 /*
 // spawning enemies

@@ -3,7 +3,10 @@
 var collidesWith = {
     player : [platforms, enemies],
     enemies : [platforms],
-    worldEdges : [enemies, player]
+    worldEdges : [
+	{name: enemies, left: enemyLeftWallCollision, right: enemyRightWallCollision}, 
+	{name: player, left: playerWallCollision, right: playerWallCollision}
+    ]
 
 };
 
@@ -14,29 +17,30 @@ for (var key in collidesWith.player) { game.physics.arcade.collide(player, colli
 for (var key in collidesWith.enemies) { game.physics.arcade.collide(enemies, collidesWith.enemies[key]); }
 
 // left world bounds collision
-// TODO make recursive for all enemies and player; array of functions?
 for (var key in collidesWith.worldEdges) { 
     game.physics.arcade.collide(
-        collidesWith.worldEdges[key], 
+        collidesWith.worldEdges[key].name, 
         worldEdges.getAll('worldEdge')[0], 
-        enemyLeftWallCollision, 
-        null, this);
+        collidesWith.worldEdges[key].left, 
+	null, this);
 }
 
 // right world bounds collision
 for (var key in collidesWith.worldEdges) { 
     game.physics.arcade.collide(
-        collidesWith.worldEdges[key], 
+        collidesWith.worldEdges[key].name, 
         worldEdges.getAll('worldEdge')[1], 
-        enemyRightWallCollision, 
-        null, this);
+        collidesWith.worldEdges[key].right, 
+	null, this);
 }
 
 game.physics.arcade.overlap(player, null, this);
 
 // player and enemy wall collision
 
-function playerWallCollision(){''}
+function playerWallCollision(){
+console.log('player wall collision');
+}
 
 function enemyLeftWallCollision(enemies, enemy){
     enemy.animations.play('right');
