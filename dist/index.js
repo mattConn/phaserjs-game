@@ -68,7 +68,7 @@ function create() {
     player.body.bounce.y = 0.1;
     player.body.gravity.y = 2000;
     player.walkingSpeed = 250;
-    player.runningSpeed = 300;
+    player.runningSpeed = 280;
     player.body.collideWorldBounds = true;
     player.animations.add('left', [0, 1, 2, 3], 10, true);
     player.animations.add('right', [5, 6, 7, 8], 10, true);
@@ -106,7 +106,7 @@ function create() {
     }
     */
     
-    spawnEnemies(200,200,'right');
+    //spawnEnemies(200,200,'right');
     // spawnEnemies(300,200,'right');
     
     /*

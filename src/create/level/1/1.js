@@ -25,7 +25,7 @@ for(var i=0;i<6;i++){
 }
 */
 
-spawnEnemies(200,200,'right');
+//spawnEnemies(200,200,'right');
 // spawnEnemies(300,200,'right');
 
 /*
