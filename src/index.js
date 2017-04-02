@@ -1,6 +1,6 @@
-//=include _preload.js
+//=include preload.js
 //=include create/index.js
 //=include update/index.js
 
-//=include _spawn-enemies.js
-//=include _draw-level.js
+//=include spawn-enemies.js
+//=include draw-room.js

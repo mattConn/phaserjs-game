@@ -4,8 +4,8 @@ var collidesWith = {
     player : [platforms, enemies],
     enemies : [platforms, player],
     worldEdges : [
-	{name: enemies, left: enemyLeftWallCollision, right: enemyRightWallCollision}, 
-	{name: player, left: playerLeftWallCollision, right: playerRightWallCollision}
+		{name: enemies, left: enemyLeftWallCollision, right: enemyRightWallCollision}, 
+		{name: player, left: playerLeftWallCollision, right: playerRightWallCollision}
     ]
 
 };
@@ -39,11 +39,14 @@ game.physics.arcade.overlap(player, null, this);
 // player and enemy wall collision
 function playerRightWallCollision(){
 	player.position.x = 3;
-	drawLevel(level1[1]);
+	roomNumber < level1.length - 1 ? roomNumber++ : '';
+	drawRoom(level1[roomNumber]);
 }
 
 function playerLeftWallCollision(){
 	player.position.x = game.world.width - 3;
+	roomNumber > 0 ? roomNumber-- : '';
+	drawRoom(level1[roomNumber]);
 }
 
 function enemyLeftWallCollision(enemies, enemy){

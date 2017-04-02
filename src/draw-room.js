@@ -1,24 +1,28 @@
 //level drawing functions
 
+// number of room in level; updates when entering room (player world edge collision).
+// room is drawn by matching roomnumber with level's room array index.
+var roomNumber = 0;
+
+// for drawing with 32x32 tiles
 function cell(number){
 	return (number - 1)*32;
 }
 
-function drawLevel(number,firstTime){
-	
-	//clear level before redraw
-	if(!firstTime){
-		//clear level	
+function drawRoom(level){
+
+	//clear room if full
+	try {
 		for(var key in levelElements){
 			levelElements[key].callAll('kill');
 		}
-	}
+	} catch(e){};
 
 	//draw level
-	for(var key in number){
-		for(var i=0; i <=  number[key].length; i++){
+	for(var key in level){
+		for(var i=0; i <=  level[key].length; i++){
 			
-			switch (number[key].charAt(i)){
+			switch (level[key].charAt(i)){
 				case 'p':
 					platform = platforms.create(cell(i), cell(key), 'lt-platform');
 					platform.body.immovable=true;
@@ -43,7 +47,7 @@ function drawLevel(number,firstTime){
 /*
 //level map blueprint
 var foo = [
-	//1						  25
+	//1			12			 25
 	'-------------------------',//1
 	'-------------------------',//2
 	'-------------------------',//3
@@ -53,7 +57,7 @@ var foo = [
 	'-------------------------',//7
 	'-------------------------',//8
 	'-------------------------',//9
-	'-------------------------',//1-
+	'-------------------------',//10
 	'-------------------------',//11
 	'-------------------------',//12
 	'-------------------------',//13

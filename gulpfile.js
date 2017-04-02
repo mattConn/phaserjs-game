@@ -8,8 +8,9 @@ var include = require('gulp-include');
 
 // Concatenate & Minify JS
 gulp.task('scripts', function() {
-    return gulp.src(['!src/_*.js', 'src/*.js'])
-        .pipe(include())
+    //return gulp.src(['!src/_*.js', 'src/*.js'])
+    return gulp.src('src/index.js' )
+		.pipe(include())
         // .pipe(concat('main.js'))
         // .pipe(uglify())
         .pipe(gulp.dest('dist'));
