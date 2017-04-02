@@ -38,6 +38,7 @@ function preload() {
 
 // global group variable declarations
 var player,
+gamepad,
 platforms,
 cursors,
 ltBackground,

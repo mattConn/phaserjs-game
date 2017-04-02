@@ -38,6 +38,7 @@ function preload() {
 
 // global group variable declarations
 var player,
+gamepad,
 platforms,
 cursors,
 ltBackground,
@@ -46,6 +47,7 @@ worldEdges,
 grid,
 enemies,
 enemy;
+
 function create() {
     game.physics.startSystem(Phaser.Physics.ARCADE);
 
@@ -104,7 +106,7 @@ function create() {
     }
     */
     
-    // spawnEnemies(200,200,'right');
+    spawnEnemies(200,200,'right');
     // spawnEnemies(300,200,'right');
     
     /*
@@ -155,8 +157,10 @@ function create() {
     
     
 
-    // keyboard input support
+    // keyboard and controller input support
     // bindings included in update/index.js
+    game.input.gamepad.start();
+    gamepad = game.input.gamepad.pad1;
     cursors = game.input.keyboard.createCursorKeys();
     jumpButton = game.input.keyboard.addKey(Phaser.Keyboard.Z);
     runButton = game.input.keyboard.addKey(Phaser.Keyboard.SHIFT);
@@ -164,6 +168,7 @@ function create() {
     gridButton = game.input.keyboard.addKey(Phaser.Keyboard.G);
     
 }
+
 function update() {
     // collision detection
     
@@ -220,14 +225,13 @@ function update() {
     }
     
     player.body.velocity.x = 0;
-    var playerSpeed = 250;
     
-    // arrow keys; left/right movement
-    if (cursors.left.isDown) {
+    // arrow keys, 360 joystick; left/right movement
+    if (cursors.left.isDown || gamepad.axis(Phaser.Gamepad.XBOX360_STICK_LEFT_X) < -0.1) {
         player.body.velocity.x = -1 * (player.walkingSpeed + isRunning());
         player.animations.play('left');
     }
-    else if (cursors.right.isDown) {
+    else if (cursors.right.isDown || gamepad.axis(Phaser.Gamepad.XBOX360_STICK_LEFT_X) > 0.1) {
         player.body.velocity.x = player.walkingSpeed + isRunning();
         player.animations.play('right');
     }
@@ -243,13 +247,13 @@ function update() {
     }
     
     // jumping
-    if (jumpButton.isDown && (player.body.onFloor() || player.body.touching.down)) {
+    if ((jumpButton.justDown || gamepad.justPressed(Phaser.Gamepad.XBOX360_A)) && (player.body.onFloor() || player.body.touching.down)) {
         player.body.velocity.y = -780;
     }
     
     //running
     function isRunning(){
-       if (runButton.isDown) {
+       if (runButton.isDown || gamepad.isDown(Phaser.Gamepad.XBOX360_X) ) {
          return player.runningSpeed; 
        } else {
          return 0;
@@ -257,11 +261,12 @@ function update() {
     }
     
     // DEV display grid
-    if (gridButton.isDown) {
+    if (gridButton.justDown) {
        grid.alpha = 0.2;
     }
     
 }
+
 
 // enemy spawning fn
 
@@ -278,3 +283,4 @@ function spawnEnemies (x, y, direction) {
         enemy.animations.play(direction);
         direction == 'left' ? enemy.body.velocity.x = -1 * enemy.walkingSpeed : enemy.body.velocity.x = 150;
 }
+

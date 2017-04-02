@@ -1,4 +1,4 @@
 function update() {
     //=include collision.js
-    //=include ../keyboard/bindings.js
+    //=include ../input/bindings.js
 }

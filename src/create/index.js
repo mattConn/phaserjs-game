@@ -10,7 +10,7 @@ function create() {
     
     //=include persistent.js
 
-    // keyboard input support
+    // keyboard and controller input support
     // bindings included in update/index.js
-    //=include ../keyboard/definitions.js
+    //=include ../input/definitions.js
 }
