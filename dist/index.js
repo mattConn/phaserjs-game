@@ -360,38 +360,38 @@ function cell(number){
 	return (number - 1)*32;
 }
 
-function drawRoom(level){
+function drawRoom(room){
 
 	//clear room if full
 	try {
-		for(var key in levelElements){
-			levelElements[key].callAll('kill');
+		for(var element in roomElements){
+			roomElements[element].callAll('kill');
 		}
 	} catch(e){};
 
 	//draw level
-	for(var key in level){
-		for(var i=0; i <=  level[key].length; i++){
+	for(var row in room){
+		for(var column=0; column <=  room[row].length; column++){
 			
-			switch (level[key].charAt(i)){
+			switch (room[row].charAt(column)){
 				case 'p':
-					platform = platforms.create(cell(i), cell(key), 'lt-platform');
+					platform = platforms.create(cell(column), cell(row), 'lt-platform');
 					platform.body.immovable=true;
 					break;
 				case 'e':
-					//enemies.create(cell(i), cell(key), 'enemy');
-					spawnEnemies(cell(i), cell(key), 'left');
+					//enemies.create(cell(column), cell(row), 'enemy');
+					spawnEnemies(cell(column), cell(row), 'left');
 					break;
 				case 'E':
-					//enemies.create(cell(i), cell(key), 'enemy');
-					spawnEnemies(cell(i), cell(key), 'right');
+					//enemies.create(cell(column), cell(row), 'enemy');
+					spawnEnemies(cell(column), cell(row), 'right');
 					break;
 			}
 		}
 	}
 
 	//all elements possibly present in level; to be cleared on new room
-	levelElements = [
+	roomElements = [
 		platforms,
 		enemies
 	];
