@@ -2,7 +2,8 @@
 Making game with Phaser JS.  
 
 ## To play
-Run local server with 'dist' as root.  
+Run local server with 'dist' as root directory.  
+`sh play_game.sh` can do this for you (via python).
 
 ## For development  
 Terms to search for:
